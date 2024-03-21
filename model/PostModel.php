@@ -1,10 +1,10 @@
 <?php
 class Post {
-  public $content;
-  public $description;
-  public $id;
-  public $slug;
-  public $title;
+  private $content;
+  private $description;
+  private $id;
+  private $slug;
+  private $title;
 
   public function __construct()
   {
@@ -49,6 +49,16 @@ class Post {
 
   public function setPostTitle($value) {
     $this->title = $value;
+  }
+
+  public function getObjectPost() {
+    return [
+      'id' => $this->getId(),
+      'content' => $this->getContent(),
+      'description' => $this->getPostDescription(),
+      'slug' => $this->getPostSlug(),
+      'title' => $this->getPostTitle()
+    ];
   }
 }
 ?>

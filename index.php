@@ -14,19 +14,18 @@
         type: "post", //request type,
         dataType: 'json',
         //**Params api get post by query**
-        // data: {
-        //   cats: [1, 2],
-        //   currentPosts: [1],
-        //   page: 1,
-        //   action: 'getPostsByQuery'
-        // },
+        data: {
+          cats: [1, 2],
+          currentPosts: [1],
+          page: 1,
+          action: 'getPostsByQuery'
+        },
 
         //**Params api get detail post**
-        data: {
-          id: 2,
-          action: 'getDetailsPost',
-          isCount: true
-        },
+        // data: {
+        //   id: 2,
+        //   action: 'getDetailsPost'
+        // },
 
         //**Params api get posts in dashboard**
         // data: {

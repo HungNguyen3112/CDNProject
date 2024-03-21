@@ -1,10 +1,10 @@
 <?php
 class Topic {
 
-  private $id;
-  private $items;
-  private $name;
-  private $slug;
+  public $id;
+  public $items;
+  public $name;
+  public $slug;
 
   public function __construct()
   {

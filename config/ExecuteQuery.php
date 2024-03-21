@@ -11,11 +11,12 @@ class ExecuteQuery {
     try {
       if (!$this->conn) return;
       
-      $db = $this->conn;    
+      $db = $this->conn;
+     
       $smtp = $db->query($queryString);
 
-      if (empty($smtp) && !$isUpdate) {
-        die("Error in query execution: ");
+      if (empty($smtp) || !$smtp) {
+        die("Error in query execution: " . $db->error);
       }
 
       if ($isUpdate) {

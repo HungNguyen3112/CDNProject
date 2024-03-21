@@ -19,7 +19,7 @@ class PostServices
   public function GetPostDetailsById(int $id, $isCount = false)
   {
     try {
-    $sqlQuery = "SELECT * FROM posts Where Id = '" . $id . "'";
+    $sqlQuery = "SELECT * FROM posts Where Id ={$id}";
 
     $executeDb = $this->_executeDb;
  
@@ -29,13 +29,13 @@ class PostServices
     
     $result = $result[0];
 
-    // if ($isCount) {
-    //   $views = $result['views'] + 1;
-    //   $result['views'] = $views;
-    //   $sqlUpdateViews = "UPDATE Posts set views = " . $views . " where id = " . $result['id'];
+    if ($isCount) {
+      $views = $result['views'] + 1;
+      $result['views'] = $views;
+      $sqlUpdateViews = "UPDATE Posts set views = {$views} where id = {$result['id']}";
 
-    //   $resultUpdate = $executeDb->execute($sqlUpdateViews, true);
-    // }
+      $resultUpdate = $executeDb->execute($sqlUpdateViews, true);
+    }
 
     $postModel = new Post;
     $postModel->setContent($result['content']);
@@ -154,23 +154,28 @@ class PostServices
     if (empty($data)) return $data;
     $map = [];
     foreach ($data as $item) {
-    $topicName = $item['topic_name'];
-    if (!isset($map[$topicName])) { 
-        $map[$topicName] = [
-            "id" => $item['topic_id'],
-            "name" => $item['topic_name'],
-            "slug" => $item['topic_slug'],
-            "posts" => []
-        ];
-    }
-    unset($item['topic_name'], $item['topic_id'], $item['topic_slug']);
-    $postModel = new Post;
-    $postModel->setContent($item['post_content']);
-    $postModel->setPostDescription($item['post_description']);
-    $postModel->setId($item['post_id']);
-    $postModel->setPostSlug($item['post_slug']);
-    $postModel->setPostTitle($item['post_title']);
-    $map[$topicName]['posts'][] = $postModel;
+      $topicName = $item['topic_name'];
+      $model = null;
+      if (!isset($map[$topicName])) { 
+          $model = new Topic;
+          $model->setId($item['topic_id']);
+          $model->setTopicName($item['topic_name']);
+          $model->setTopicSlug($item['topic_slug']);
+          $map[$topicName] = $model;
+      } else {
+        $model = $map[$topicName];
+      }
+      unset($item['topic_name'], $item['topic_id'], $item['topic_slug']);
+      $postModel = new Post;
+      $postModel->setContent($item['post_content']);
+      $postModel->setPostDescription($item['post_description']);
+      $postModel->setId($item['post_id']);
+      $postModel->setPostSlug($item['post_slug']);
+      $postModel->setPostTitle($item['post_title']);
+
+      $post = $postModel->getObjectPost();
+
+      $model->setItems($post);
     }
     return $map;
   }

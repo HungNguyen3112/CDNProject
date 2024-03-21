@@ -8,7 +8,7 @@
 -- PHP Version: 5.6.37
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
+SET AUTOCOMMIT = 1;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -38,7 +38,7 @@ CREATE TABLE `posts` (
   `image` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `posts`
@@ -59,7 +59,7 @@ CREATE TABLE `topics` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `topics`
@@ -81,7 +81,7 @@ CREATE TABLE `post_topic` (
   `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `post_topic`
@@ -92,36 +92,6 @@ INSERT INTO `post_topic` (`id`, `post_id`, `topic_id`) VALUES
 (2, 1, 1),
 (3, 2, 2);
 
--- --------------------------------------------------------
---
--- Table structure for table `users`
---
-
--- CREATE TABLE `users` (
---   `id` int(11) NOT NULL,
---   `username` varchar(255) NOT NULL,
---   `email` varchar(255) NOT NULL,
---   `role` enum('Author','Admin') DEFAULT NULL,
---   `password` varchar(255) NOT NULL,
---   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
---   `updated_at` timestamp NULL DEFAULT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --
--- -- Dumping data for table `users`
--- --
-
--- INSERT INTO `users` (`id`, `username`, `email`, `role`, `password`, `created_at`, `updated_at`) VALUES
--- (1, 'Kishan', 'rkishan516@gmail.com', 'Admin', '38caf6bc6147e61e1570f61e737fb6d8', '2018-01-08 07:22:58', '2018-01-08 07:22:58'),
--- (3, 'author1', 'author1@gmail.com', 'Admin', 'b312ba4ffd5245fa2a1ab819ec0d0347', '2018-11-14 14:25:05', '2018-11-14 14:25:05'),
--- (5, 'author2', 'author2@gmail.com', 'Author', '9bd97baef2b853ec00cc3cffd269f679', '2018-11-15 05:24:20', '2018-11-15 05:24:20'),
--- (15, 'user', 'user@gmail.com', NULL, 'ee11cbb19052e40b07aac0ca060c23ee', '2018-11-22 06:02:20', '2018-11-22 06:02:20');
-
---
--- Indexes for dumped tables
---
-
---
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
@@ -167,7 +137,3 @@ ALTER TABLE `post_topic`
   ADD CONSTRAINT `post_topic_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `post_topic_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

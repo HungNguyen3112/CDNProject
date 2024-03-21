@@ -11,7 +11,8 @@ $data = null;
 
 switch ($action) {
   case 'getDetailsPost':
-    if ($_POST['id']) $data = $services->GetPostDetailsById($_POST['id'], $_POST['isCount']);
+    $isCount = isset($_POST['isCount']) ? $_POST['isCount'] : false;
+    if ($_POST['id']) $data = $services->GetPostDetailsById($_POST['id'], $isCount);
     break;
   case 'getPostsByQuery':
     $data = $services->GetPostsByQuery($_POST['cats'], $_POST['currentPosts'], $_POST['page']);
