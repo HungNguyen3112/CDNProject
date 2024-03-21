@@ -4,9 +4,10 @@ $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 include $base_dir . 'config/app.php';
 include_once $base_dir . 'config/ExecuteQuery.php';
 include_once $base_dir . 'model/Model.php';
+include_once $base_dir . 'interface/IPostServices.php';
 $constants = require $base_dir . 'utils/CONSTANTS.php';
 
-class PostServices
+class PostServices implements IPostServices
 {
   private $_executeDb;
 
@@ -84,7 +85,7 @@ class PostServices
       $querySelect = 't.id as topic_id, t.name as topic_name, t.slug as topic_slug, p.id as post_id, p.title as post_title, p.slug as post_slug, p.description as post_description, p.content as post_content';
 
       //query pagination
-      $queryPagination = "limit " . $results_per_page . " offset " . ($page - 1) * $results_per_page;
+      $queryPagination = "limit $results_per_page offset " . ($page - 1) * $results_per_page;
 
       $query = str_replace('%s', $querySelect, $query);
       
@@ -112,7 +113,7 @@ class PostServices
     
   }
 
-  public function GetDataDashboard () {
+  public function GetDataDashboard() {
     try {
       $executeDb = $this->_executeDb;
 
@@ -180,7 +181,7 @@ class PostServices
     return $map;
   }
 
-  public function GetDataResponse ($status = 200, $data = [], $error = null) {
+  public function GetDataResponse($status = 200, $data = [], $error = null) {
 
     $dataDefault = [
       'status'=> '',

@@ -2,11 +2,12 @@
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 
-include_once( $base_dir ."services/postServices.php");
+include_once $base_dir . 'services/postServices.php';
 
 $action =  $_POST['action'];
 
 $services = new PostServices();
+
 $data = null;
 
 switch ($action) {
